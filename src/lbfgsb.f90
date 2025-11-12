@@ -39,6 +39,7 @@
     module lbfgsb_module
 
     use lbfgsb_kinds_module, only: wp => lbfgsb_wp
+    use lbfgsb_kinds_module, only: debug_kind => debug_kind
     use lbfgsb_linpack_module
     use lbfgsb_blas_module
     use iso_fortran_env, only: output_unit
@@ -2377,11 +2378,13 @@
       integer :: i
 
       if ( Iprint>=0 ) then
+         call debug_kind()
          write (output_unit,'(a,/,/,a,/,/,a,1p,d10.3)') &
                   'RUNNING THE L-BFGS-B CODE',&
                   '           * * *',&
                   'Machine precision =',Epsmch
          write (output_unit,*) 'N = ' , n , '    M = ' , m
+         write (output_unit,*) "Storage (bits): ", STORAGE_SIZE(Epsmch)
          if ( Iprint>=1 ) then
             write (Itfile,'(a,/,/,a,/,a,/,a,/,a,/,a,/,a,/,a,/,a,/,a,/,a,/,a,/,/,a,/,/,a,1p,d10.3)') &
                   'RUNNING THE L-BFGS-B CODE',                                      &
