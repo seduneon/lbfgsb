@@ -12,6 +12,8 @@
 !      `real(kind=real32)` [4 bytes]
 #elif REAL64
 !      `real(kind=real64)` [8 bytes]
+#elif REAL80
+!      `real(kind=)` [10 bytes]
 #elif REAL128
 !      `real(kind=real128)` [16 bytes]
 #else
@@ -27,13 +29,15 @@
     private
 
 #ifdef REAL32
-    integer,parameter,public :: lbfgsb_wp = real32   !! real kind used by this module [4 bytes]
+    integer,parameter,public :: lbfgsb_wp = real32                           !! real kind used by this module [4 bytes]
 #elif REAL64
-    integer,parameter,public :: lbfgsb_wp = real64   !! real kind used by this module [8 bytes]
+    integer,parameter,public :: lbfgsb_wp = real64                           !! real kind used by this module [8 bytes]
+#elif REAL80
+    integer,parameter,public :: lbfgsb_wp = selected_real_kind(p=18, r=4931) !! real kind used by this module [10 bytes]
 #elif REAL128
-    integer,parameter,public :: lbfgsb_wp = real128  !! real kind used by this module [16 bytes]
+    integer,parameter,public :: lbfgsb_wp = real128                          !! real kind used by this module [16 bytes]
 #else
-    integer,parameter,public :: lbfgsb_wp = real64   !! real kind used by this module [8 bytes]
+    integer,parameter,public :: lbfgsb_wp = real64                           !! real kind used by this module [8 bytes]
 #endif
 
     end module lbfgsb_kinds_module
